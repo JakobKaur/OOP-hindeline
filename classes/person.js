@@ -1,27 +1,30 @@
+// classes/Person.js
 class Person {
     constructor(name) {
-        this.name = name
-        this.dateofbirth = NaN
+        this.name = name;
+        this.birthYear = null;
     }
+
     setDateOfBirth(year) {
-        if (typeof year === 'number') {
-            this.dateofbirth = year
-        }
+        this.birthYear = year;
     }
+
     getDateOfBirth() {
-        return this.dateofbirth
+        return this.birthYear;
     }
+
     age() {
-        if (this.dateofbirth !== NaN) {
-            return new Date().getFullYear() - this.dateofbirth
-        }
+        const currentYear = new Date().getFullYear();
+        return this.birthYear ? currentYear - this.birthYear : null;
     }
+
     getName() {
-        return this.name
+        return this.name;
     }
+
     description() {
-        return `${this.name} on isik.`
+        return `Person: ${this.name}`;
     }
 }
 
-module.exports = Person
+module.exports = Person;
