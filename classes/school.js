@@ -1,38 +1,46 @@
-const Person = require('./Person')
-const Student = require('./Student')
-const Course = require('./Course')
+// classes/School.js
+const Student = require('./Student');
+const Course = require('./Course');
 
 class School {
     constructor(name) {
-        this.name = name
-        this.students = []
-        this.courses = []
+        this.name = name;
+        this.students = [];
+        this.courses = [];
+        this.nextId = 1;
     }
+
     addCourse(course) {
-        this.courses.push(new Course(course))
+        if (!this.courses.includes(course)) {
+            this.courses.push(course);
+        }
     }
+
     addStudent(student) {
-        let tempStudent = new Student(student)
-        if (tempStudent.dateofbirth >= 5 && tempStudent.dateofbirth <= 25) {
-            tempStudent.setId(Math.floor(Math.random() * (9999 - 1111 + 1)) + 1111)
-            this.students.push(tempStudent)
+        if (student.age() >= 5 && student.age() <= 18 && !this.students.includes(student)) {
+            student.setId(this.nextId++);
+            this.students.push(student);
         }
     }
+
     addStudentGrade(student, course, grade) {
-        if (student in this.students) {
-            student.addGrade(course, grade)
-            course.addGrade(student, grade)
+        if (this.students.includes(student) && this.courses.includes(course)) {
+            student.addGrade(course, grade);
+            course.addGrade(student, grade);
         }
     }
+
     getStudents() {
-        return this.students
+        return this.students;
     }
+
     getCourses() {
-        return this.courses
+        return this.courses;
     }
+
     getStudentsOrderedByAverageGrade() {
-        return this.students.sort((a, b) => b.getAverageGrade() - a.getAverageGrade())
+        return [...this.students].sort((a, b) => b.getAverageGrade() - a.getAverageGrade());
     }
 }
 
-module.exports = School
+module.exports = School;
