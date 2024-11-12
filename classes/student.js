@@ -1,32 +1,38 @@
-const Person = require('./Person')
+// classes/Student.js
+const Person = require('./Person');
 
 class Student extends Person {
     constructor(name) {
-        super(name)
-        this.id = "NONE"
-        this.grades = []
+        super(name);
+        this.id = null;
+        this.grades = [];
     }
+
     setId(id) {
-        if (this.id === "NONE") {
-            this.id = id
-        }
+        if (this.id === null) this.id = id;
     }
+
     getId() {
-        return this.id
+        return this.id;
     }
+
     addGrade(course, grade) {
-        this.grades.push({course, grade})
+        this.grades.push({ course, grade });
     }
+
     getGrades() {
-        return this.grades
+        return this.grades;
     }
+
     getAverageGrade() {
-        const totalGrades = this.grades.reduce((sum, item) => sum + item.grade, 0)
-        return totalGrades / this.grades.length;
+        if (this.grades.length === 0) return -1;
+        const total = this.grades.reduce((sum, entry) => sum + entry.grade, 0);
+        return total / this.grades.length;
     }
+
     description() {
-        return `${this.name} on opilane.`
+        return `Student: ${this.name}`;
     }
 }
 
-module.exports = Student
+module.exports = Student;
