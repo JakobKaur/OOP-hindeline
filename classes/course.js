@@ -1,20 +1,27 @@
+// classes/Course.js
 class Course {
     constructor(name) {
-        this.name = name
-        this.studentgrades = []
+        this.name = name;
+        this.grades = [];
     }
+
     addGrade(student, grade) {
-        this.studentgrades.push(student, grade)
+        this.grades.push({ student, grade });
     }
+
     getGrades() {
-        return this.studentgrades
+        return this.grades;
     }
+
     getAverageGrade() {
-        // do something
+        if (this.grades.length === 0) return -1;
+        const total = this.grades.reduce((sum, entry) => sum + entry.grade, 0);
+        return total / this.grades.length;
     }
+
     description() {
-        return `Kursuse nimi on ${this.name}`
+        return `Course: ${this.name}`;
     }
 }
 
-module.exports = Course
+module.exports = Course;
